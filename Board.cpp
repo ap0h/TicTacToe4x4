@@ -1,9 +1,54 @@
 #include <cstring>
 #include <iostream>
+#include <vector>
+#include <math.h>
+#include <stdlib.h>
 #include "Board.h"
+
+int Board::minimax(char* board, int depth, bool isMaximazerTurn, int alpha, int beta)
+{
+    if (depth == 0) {
+
+        // TODO: proveri dal je maximezer turn i vrati checkWinner, ako ne vrati suprotno ako je suprotno pobednik
+        return (maxSign == X) ? checkWinner() : -checkWinner();
+    }
+    
+
+
+
+
+    return 0;
+}
+
+
+Result Board::checkWinner()
+{
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++) {
+
+            char currSign = board[i * N + j]);
+            if (currSign == Blank) continue;
+
+            bool currWin = isWinner(i, j, currSign);
+            if (currWin) {
+                if (currSign == ComputerSign) {
+                    return 1;
+                }
+                return -1;
+            }
+        }
+    }
+    return DRAW;
+}
+
+void Board::computerMove()
+{
+}
 
 void Board::printBoard()
 {
+
     std::cout << "*BOARD*";
     for (int i = 0; i < N; i++)
     {
@@ -93,6 +138,8 @@ bool Board::isWinner(int lastMoveI, int lastMoveJ, State playerSign)
 
 Board::Board()
 {
+    PlayerSign = 'X';
+    ComputerSign = 'O';
     N = 4;
     board = new char[16];
     memset(board, 0, 16);
@@ -100,6 +147,8 @@ Board::Board()
 }
 Board::Board(int dimension)
 {
+    PlayerSign = 'X';
+    ComputerSign = 'O';
     N = dimension;
     int N2 = N * N;
     board = new char[N2];
